@@ -36,6 +36,10 @@ function App() {
         setFilter(value);
     }
 
+    // const changeFilter = (value: FilterType) => {
+    //     setFilter(value);
+    // }
+
 
     return (
         <div className='App'>
