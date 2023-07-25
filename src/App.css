@@ -3,3 +3,21 @@
   margin: 30px;
   gap:30px;
 }
+
+.done-tasks {
+  opacity: 0.5;
+}
+
+.active-button {
+  background-color: pink;
+  border: 2px pink solid;
+  border-radius: 3px;
+}
+
+.error {
+  border: 2px solid red;
+}
+
+.error-message {
+  color: red;
+}

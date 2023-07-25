@@ -1,5 +1,5 @@
 .frame {
     padding: 15px 20px;
-    background-color: pink;
+    border: 5px dotted pink;
     height: content-box;
 }
