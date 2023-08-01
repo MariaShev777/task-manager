@@ -21,3 +21,9 @@
 .error-message {
   color: red;
 }
+
+.frame {
+  height: 100%;
+  padding: 15px 20px;
+  border: 5px dotted pink;
+}
