@@ -1,6 +1,7 @@
 import React, {ChangeEvent} from "react";
 import {FilterType} from "./App";
 import {AddItemForm} from "./AddItemForm";
+import EditableSpan from "./EditableSpan";
 
 export type TaskType = {
     id: string
@@ -45,9 +46,16 @@ export const Todolist = (props: TodolistPropsType) => {
         props.addTask(props.id, title);
     }
 
+    const changeTodolistTitle = (title: string) => {
+        props.changeTodolistTitle(props.id, title);
+    }
+
     return (
         <div className={'frame'}>
-            <h3>{props.title} <button onClick={onClickHandler}>DELETE</button></h3>
+            <h3>
+                <EditableSpan title={props.title} onChange={changeTodolistTitle}/>
+                <button onClick={onClickHandler}>DELETE</button>
+            </h3>
             <AddItemForm addItem={addTask} />
             <ul>
                 {props.tasks.map(el => {
@@ -60,10 +68,14 @@ export const Todolist = (props: TodolistPropsType) => {
                         props.changeStatus(props.id, el.id, e.currentTarget.checked);
                     }
 
+                    const changeTaskTitle = (title: string) => {
+                        props.changeTaskTitle(props.id, el.id, title);
+                    }
+
                     return (
                         <li className={el.isDone ? 'done-tasks' : ''}>
                             <input type="checkbox" checked={el.isDone} onChange={onChangeHandler}/>
-                            <span>{el.title}</span>
+                            <EditableSpan title={el.title} onChange={changeTaskTitle}/>
                             <button onClick={onClickHandler}
                                     style={{marginLeft: '10px', color: 'deeppink', fontWeight: 'bold'}}>X</button>
                         </li>

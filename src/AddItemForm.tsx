@@ -24,7 +24,7 @@ export const AddItemForm = (props: PropsType) => {
         setTitle(event.currentTarget.value);
     }
 
-    const onKeyDownHandler = (event: KeyboardEvent<HTMLButtonElement>) => {
+    const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         setError(null);
         if (event.key === "Enter") {
             addTask();
@@ -33,8 +33,8 @@ export const AddItemForm = (props: PropsType) => {
 
     return (
         <div>
-            <input value={title} onChange={onChangeHandler} className={error ? "error" : ""}/>
-            <button onClick={addTask} onKeyDown={onKeyDownHandler}>+</button>
+            <input value={title} onChange={onChangeHandler} className={error ? "error" : ""} onKeyDown={onKeyDownHandler}/>
+            <button onClick={addTask}>+</button>
 
             {error && <div className={"error-message"}>{error}</div>}
         </div>
