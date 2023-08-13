@@ -7,7 +7,7 @@ import {AddItemForm} from "./AddItemForm";
 
 export type FilterType = 'all' | 'active' | 'completed'
 
-type TasksStateType = {
+export type TasksStateType = {
     [key: string]: TaskType[]
 }
 
@@ -48,10 +48,10 @@ function App() {
         setTasks({...tasks, [id]: [newTask, ...tasks[id]]});
     }
     const deleteTask = (id: string, taskId: string) => {
-        let nonDeletedTasks = tasks[id].filter(el => el.id !== taskId);
-        setTasks({...tasks, [id]: nonDeletedTasks});
+        // let nonDeletedTasks = tasks[id].filter(el => el.id !== taskId);
+        // setTasks({...tasks, [id]: nonDeletedTasks});
 
-        // setTasks({...tasks, [id]: tasks[id].filter(t => t.id !== taskId)})
+        setTasks({...tasks, [id]: tasks[id].filter(t => t.id !== taskId)})
     }
     const changeStatus = (id: string, taskId: string, status: boolean) => {
         setTasks({...tasks, [id]: tasks[id].map(t => t.id === taskId
