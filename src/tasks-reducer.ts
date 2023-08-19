@@ -52,8 +52,8 @@ export const tasksReducer = (state: TasksStateType, action: ActionType): TasksSt
 }
 
 
-export type AddTaskAT = ReturnType<typeof AddTaskAC>;
-export const AddTaskAC = (id: string, title: string) => {
+export type AddTaskAT = ReturnType<typeof addTaskAC>;
+export const addTaskAC = (id: string, title: string) => {
     return {
         type: 'ADD-TASK',
         payload: {
@@ -63,8 +63,8 @@ export const AddTaskAC = (id: string, title: string) => {
 }
 
 
-export type RemoveTaskAT = ReturnType<typeof RemoveTaskAC>;
-export const RemoveTaskAC = (id: string, taskId: string) => {
+export type RemoveTaskAT = ReturnType<typeof removeTaskAC>;
+export const removeTaskAC = (id: string, taskId: string) => {
     return {
         type: 'REMOVE-TASK',
         payload: {
@@ -74,8 +74,8 @@ export const RemoveTaskAC = (id: string, taskId: string) => {
 }
 
 
-export type ChangeTaskStatusAT = ReturnType<typeof ChangeTaskStatusAC>;
-export const ChangeTaskStatusAC = (id: string, taskId: string, status: boolean) => {
+export type ChangeTaskStatusAT = ReturnType<typeof changeTaskStatusAC>;
+export const changeTaskStatusAC = (id: string, taskId: string, status: boolean) => {
     return {
         type: 'CHANGE-TASK-STATUS',
         payload: {
@@ -85,8 +85,8 @@ export const ChangeTaskStatusAC = (id: string, taskId: string, status: boolean) 
 }
 
 
-export type ChangeTaskTitleAT = ReturnType<typeof ChangeTaskTitleAC>;
-export const ChangeTaskTitleAC = (id: string, taskId: string, title: string) => {
+export type ChangeTaskTitleAT = ReturnType<typeof changeTaskTitleAC>;
+export const changeTaskTitleAC = (id: string, taskId: string, title: string) => {
     return {
         type: 'CHANGE-TASK-TITLE',
         payload: {
