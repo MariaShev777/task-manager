@@ -1,7 +1,7 @@
 .App {
   display: flex;
-  margin: 30px;
-  gap:30px;
+  margin: 50px;
+  gap: 50px;
 }
 
 .done-tasks {
@@ -9,9 +9,7 @@
 }
 
 .active-button {
-  background-color: pink;
-  border: 2px pink solid;
-  border-radius: 3px;
+  /*border-radius: 3px;*/
 }
 
 .error {
@@ -22,8 +20,18 @@
   color: red;
 }
 
-.frame {
+.addFrame {
+  background-color: white;
+  border-radius: 15px;
   height: 100%;
-  padding: 15px 20px;
-  border: 5px dotted pink;
+  padding: 15px 8px 15px 25px;
+  box-shadow:0 0 8px #3c2c70;
+}
+
+.todolistFrame {
+  background-color: white;
+  border-radius: 15px;
+  height: 100%;
+  padding: 5px 20px 20px;
+  box-shadow:0 0 8px #3c2c70;
 }

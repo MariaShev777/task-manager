@@ -63,12 +63,12 @@ function AppWithRedux() {
 
     return (
         <div className='App'>
-            <div className={'frame'}>
+            <div className={'addFrame'}>
                 <AddItemForm addItem={addTodolist} />
             </div>
 
             {todolists.map(tl => {
-                return (
+                return <div className={"todolistFrame"}>
                     <Todolist
                         key={tl.id}
                         id={tl.id}
@@ -82,9 +82,8 @@ function AppWithRedux() {
                         removeTodolist={removeTodolist}
                         changeTaskTitle={changeTaskTitle}
                         changeTodolistTitle={changeTodolistTitle}/>
-                )
+                </div>
             })}
-
         </div>
     )
 }

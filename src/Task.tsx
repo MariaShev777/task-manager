@@ -32,7 +32,7 @@ export const Task = React.memo(({todolistId, taskId}: TaskPropsType) => {
             <input type="checkbox" checked={task.isDone} onChange={changeTaskStatus}/>
             <EditableSpan title={task.title} onChange={changeTaskTitle}/>
             <button onClick={removeTask}
-                    style={{marginLeft: '10px', color: 'deeppink', fontWeight: 'bold'}}>X</button>
+                    style={{marginLeft: '10px', color: '#1f1f20', fontWeight: 'bold'}}>X</button>
         </div>
     )
 });

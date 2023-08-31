@@ -1,7 +1,11 @@
 .taskStyle {
-    padding: 20px 5px;
+    margin: 10px 5px 20px;
 }
 
 .taskStyle div {
-    padding: 3px;
+    margin: 8px;
+}
+
+.allTasks {
+    background-color: orange;
 }

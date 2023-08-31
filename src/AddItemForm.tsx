@@ -34,10 +34,18 @@ export const AddItemForm = React.memo((props: PropsType) => {
         }
     }
 
+    const buttonSettings = {
+        width: '30px',
+        height: '30px',
+        color: '#8b64fd'
+    }
+
     return (
         <div>
             <input value={title} onChange={onChangeHandler} className={error ? "error" : ""} onKeyDown={onKeyDownHandler}/>
-            <Button onClick={addTask}><AddBox/></Button>
+            <Button onClick={addTask}>
+                <AddBox style={buttonSettings}/>
+            </Button>
 
             {error && <div className={"error-message"}>{error}</div>}
         </div>
