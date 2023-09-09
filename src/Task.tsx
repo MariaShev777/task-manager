@@ -1,30 +1,29 @@
 import React, {ChangeEvent, useCallback} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import EditableSpan from "./EditableSpan";
+import {EditableSpan} from "./EditableSpan";
 import {AppRootStateType} from "./state/store";
 import {TaskType} from "./Todolist";
 import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./reducers/tasks-reducer";
 
 type TaskPropsType = {
-    taskId: string
+    task: TaskType
     todolistId: string
 }
 
-export const Task = React.memo(({todolistId, taskId}: TaskPropsType) => {
-    const task = useSelector<AppRootStateType, TaskType>(state => state.tasks[todolistId].find(t => t.id === taskId) as TaskType);
+export const Task = React.memo(({todolistId, task}: TaskPropsType) => {
     const dispatch = useDispatch();
 
     const removeTask = () => {
-        dispatch(removeTaskAC(todolistId, taskId));
+        dispatch(removeTaskAC(todolistId, task.id));
     }
 
     const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(changeTaskStatusAC(todolistId, taskId, e.currentTarget.checked));
+        dispatch(changeTaskStatusAC(todolistId, task.id, e.currentTarget.checked));
     }
 
     const changeTaskTitle = useCallback((title: string) => {
-        dispatch(changeTaskTitleAC(todolistId, taskId, title));
-    }, [dispatch, todolistId, taskId]);
+        dispatch(changeTaskTitleAC(todolistId, task.id, title));
+    }, [dispatch, todolistId, task.id]);
 
 
     return (

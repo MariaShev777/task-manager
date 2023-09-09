@@ -8,7 +8,7 @@ type PropsType = {
 }
 
 
-const EditableSpan = (props: PropsType) => {
+export const EditableSpan = (props: PropsType) => {
 
     let [editMode, setEditMode] = useState<boolean>(false);
     let [title, setTitle] = useState<string>(props.title)
@@ -34,5 +34,3 @@ const EditableSpan = (props: PropsType) => {
             : <span onDoubleClick={activateEditMode}>{props.title}</span>
     );
 };
-
-export default EditableSpan;

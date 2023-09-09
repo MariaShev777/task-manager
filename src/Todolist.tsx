@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import {FilterType} from "./App";
 import {AddItemForm} from "./AddItemForm";
-import EditableSpan from "./EditableSpan";
+import {EditableSpan} from "./EditableSpan";
 import s from './Todolist.module.css';
 import {Button, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
@@ -78,7 +78,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
                 {tasksForTodolist.map(el => {
                     return <Task
                         key={el.id}
-                        taskId={el.id}
+                        task={el}
                         todolistId={props.id}
                     />
                 })}
