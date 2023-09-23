@@ -15,14 +15,14 @@ type TodolistPropsType = {
     todolistId: string
     tasks: TaskType[]
     title: string
-    deleteTask: (id: string, taskId: string) => void
-    changeFilter: (id: string, value: FilterType) => void
-    addTask: (id: string, title: string) => void
-    changeStatus: (id: string, taskId: string, status: TaskStatuses) => void
+    deleteTask: (todolistId: string, taskId: string) => void
+    changeFilter: (todolistId: string, value: FilterType) => void
+    addTask: (todolistId: string, title: string) => void
+    changeStatus: (todolistId: string, taskId: string, status: TaskStatuses) => void
     filter: FilterType
-    deleteTodolist: (id: string) => void
-    changeTaskTitle: (id: string, taskId: string, title: string) => void
-    changeTodolistTitle: (id: string, title: string) => void
+    deleteTodolist: (todolistId: string) => void
+    changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
+    changeTodolistTitle: (todolistId: string, title: string) => void
 }
 
 
@@ -80,11 +80,14 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
             </h3>
             <AddItemForm addItem={addTask} />
             <div className={s.taskStyle}>
-                {tasksForTodolist.map(el => {
+                {tasksForTodolist.map(t => {
                     return <Task
-                        key={el.id}
-                        task={el}
+                        key={t.id}
+                        task={t}
                         todolistId={props.todolistId}
+                        deleteTask={props.deleteTask}
+                        changeTaskTitle={props.changeTaskTitle}
+                        changeTaskStatus={props.changeStatus}
                     />
                 })}
             </div>
