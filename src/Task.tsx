@@ -1,7 +1,6 @@
 import React, {ChangeEvent, useCallback} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {EditableSpan} from "./EditableSpan";
-import {AppRootStateType} from "./state/store";
 import {TaskType} from "./Todolist";
 import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./reducers/tasks-reducer";
 

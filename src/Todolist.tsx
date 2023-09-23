@@ -1,17 +1,14 @@
 import React, {useCallback} from "react";
-import {FilterType} from "./App";
+
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import s from './Todolist.module.css';
 import {Button, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {Task} from "./Task";
+import {TaskStatuses, TaskType} from "./api/tasks-api";
+import {FilterType} from "./reducers/todolists-reducer";
 
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
 
 type TodolistPropsType = {
     id: string
@@ -20,9 +17,9 @@ type TodolistPropsType = {
     deleteTask: (id: string, taskId: string) => void
     changeFilter: (id: string, value: FilterType) => void
     addTask: (id: string, title: string) => void
-    changeStatus: (id: string, taskId: string, status: boolean) => void
+    changeStatus: (id: string, taskId: string, status: TaskStatuses) => void
     filter: FilterType
-    removeTodolist: (id: string) => void
+    deleteTodolist: (id: string) => void
     changeTaskTitle: (id: string, taskId: string, title: string) => void
     changeTodolistTitle: (id: string, title: string) => void
 }
@@ -43,7 +40,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
     }, [props.changeFilter, props.id]);
 
     const onClickHandler = () => {
-        props.removeTodolist(props.id);
+        props.deleteTodolist(props.id);
     }
 
     const addTask = useCallback((title: string) => {
