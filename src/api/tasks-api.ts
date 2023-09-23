@@ -26,7 +26,7 @@ export const tasksApi = {
 }
 
 
-type UpdateTaskModelType = {
+export type UpdateTaskModelType = {
     title: string
     description: string
     status: TaskStatuses
