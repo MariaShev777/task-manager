@@ -12,6 +12,15 @@ import {
     removeTodolistAC, TodolistDomainType
 } from "./reducers/todolists-reducer";
 import {AppRootStateType} from "./state/store";
+import {Menu} from "@mui/icons-material";
+import AppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
 
 
 export type TasksStateType = {
@@ -61,29 +70,47 @@ function App() {
 
     return (
         <div className="App">
-            <div className={"addFrame"}>
-                <AddItemForm addItem={addTodolist}/>
-            </div>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton edge="start" color="inherit" aria-label="menu">
+                        <Menu/>
+                    </IconButton>
+                    <Typography variant="h6">
+                        News
+                    </Typography>
+                    <Button color="inherit">Login</Button>
+                </Toolbar>
+            </AppBar>
 
-            {todolists.map(tl => {
+            <Container fixed style={{marginLeft: "20px"}}>
+                <Grid style={{padding: "20px"}} className={"addFrame"}>
+                    <AddItemForm addItem={addTodolist}/>
+                </Grid>
 
-                return <div className={"todolistFrame"}>
-                    <Todolist
-                        key={tl.id}
-                        id={tl.id}
-                        filter={tl.filter}
-                        tasks={tasks[tl.id]}
-                        title={tl.title}
-                        deleteTask={deleteTask}
-                        changeFilter={changeFilter}
-                        addTask={addTask}
-                        changeStatus={changeStatus}
-                        deleteTodolist={deleteTodolist}
-                        changeTaskTitle={changeTaskTitle}
-                        changeTodolistTitle={changeTodolistTitle}/>
-                </div>
-            })
-            }
+                <Grid container spacing={3}>
+                    {todolists.map(tl => {
+
+                        return <Grid item key={tl.id} className={"todolistFrame"}>
+                            <Paper style={{padding: "10px"}}>
+                                <Todolist
+                                    key={tl.id}
+                                    id={tl.id}
+                                    filter={tl.filter}
+                                    tasks={tasks[tl.id]}
+                                    title={tl.title}
+                                    deleteTask={deleteTask}
+                                    changeFilter={changeFilter}
+                                    addTask={addTask}
+                                    changeStatus={changeStatus}
+                                    deleteTodolist={deleteTodolist}
+                                    changeTaskTitle={changeTaskTitle}
+                                    changeTodolistTitle={changeTodolistTitle}/>
+                            </Paper>
+                        </Grid>
+                    })
+                    }
+                </Grid>
+            </Container>
         </div>
     )
 }

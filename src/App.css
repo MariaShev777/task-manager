@@ -1,6 +1,4 @@
 .App {
-  display: flex;
-  margin: 50px;
   gap: 50px;
 }
 
@@ -24,6 +22,8 @@
   background-color: white;
   border-radius: 15px;
   height: 100%;
+  width: 274px;
+  margin-top: 40px;
   padding: 15px 8px 15px 25px;
   box-shadow:0 0 8px #3c2c70;
 }
