@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import './App.css';
 import {Todolist} from "./Todolist";
 import {AddItemForm} from "./AddItemForm";
@@ -8,7 +8,7 @@ import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, FilterType,
+    changeTodolistTitleAC, fetchTodolistsTC, FilterType,
     removeTodolistAC, TodolistDomainType
 } from "./reducers/todolists-reducer";
 import {AppRootStateType} from "./state/store";
@@ -67,6 +67,10 @@ function App() {
         dispatch(changeTodolistTitleAC(todolistId, title));
     }, [])
 
+
+    useEffect(() => {
+        dispatch(fetchTodolistsTC());
+    }, [])
 
     return (
         <div className="App">

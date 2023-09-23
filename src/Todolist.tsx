@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import s from './Todolist.module.css';
@@ -7,6 +7,8 @@ import {Delete} from "@mui/icons-material";
 import {Task} from "./Task";
 import {TaskStatuses, TaskType} from "./api/tasks-api";
 import {FilterType} from "./reducers/todolists-reducer";
+import {fetchTasksTC} from "./reducers/tasks-reducer";
+import {useDispatch} from "react-redux";
 
 
 type TodolistPropsType = {
@@ -25,6 +27,7 @@ type TodolistPropsType = {
 
 
 export const Todolist = React.memo((props: TodolistPropsType) => {
+    const dispatch = useDispatch();
 
     const removeTodolist = () => {
         props.deleteTodolist(props.todolistId);
@@ -61,6 +64,11 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
     if (props.filter === "completed") {
         tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed);
     }
+
+    useEffect(() => {
+        dispatch(fetchTasksTC(props.todolistId));
+    }, [])
+
 
     return (
         <div className={'frame'}>
