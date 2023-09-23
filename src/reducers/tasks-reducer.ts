@@ -1,5 +1,5 @@
 import {TasksStateType} from "../App";
-import {AddTodolistAT, RemoveTodolistAT, setTodolistsAC, SetTodolistsAT} from "./todolists-reducer";
+import {AddTodolistAT, RemoveTodolistAT, SetTodolistsAT} from "./todolists-reducer";
 import {TaskPriorities, tasksApi, TaskStatuses, TaskType, UpdateTaskModelType} from "../api/tasks-api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../state/store";
@@ -74,7 +74,7 @@ export const tasksReducer = (state = initialState, action: ActionType): TasksSta
         case "ADD-TODOLIST": {
             return {
                 ...state,
-                [action.payload.todolistId]: []
+                [action.payload.todolist.id]: []
             }
         }
         case "REMOVE-TODOLIST": {

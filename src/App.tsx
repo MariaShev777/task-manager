@@ -10,10 +10,10 @@ import {
     updateTaskTC,
 } from "./reducers/tasks-reducer";
 import {
-    addTodolistAC,
+    addTodolistTC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, fetchTodolistsTC, FilterType,
-    removeTodolistAC, TodolistDomainType
+    changeTodolistTitleTC, deleteTodolistTC, fetchTodolistsTC, FilterType,
+    TodolistDomainType
 } from "./reducers/todolists-reducer";
 import {AppRootStateType} from "./state/store";
 import {Menu} from "@mui/icons-material";
@@ -56,11 +56,11 @@ function App() {
 
 
     const addTodolist = useCallback((title: string) => {
-        dispatch(addTodolistAC(title));
+        dispatch(addTodolistTC(title));
     }, [])
 
     const deleteTodolist = useCallback((todolistId: string) => {
-        dispatch(removeTodolistAC(todolistId));
+        dispatch(deleteTodolistTC(todolistId));
     }, [])
 
     const changeFilter = useCallback((todolistId: string, value: FilterType) => {
@@ -68,7 +68,7 @@ function App() {
     }, [])
 
     const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
-        dispatch(changeTodolistTitleAC(todolistId, title));
+        dispatch(changeTodolistTitleTC(todolistId, title));
     }, [])
 
 
