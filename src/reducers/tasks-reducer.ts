@@ -11,7 +11,7 @@ export type UpdateTaskAT = ReturnType<typeof updateTaskAC>;
 export type SetTasksAT = ReturnType<typeof setTasksAC>;
 
 
-type ActionType =
+type TasksActionType =
     | AddTaskAT
     | RemoveTaskAT
     | UpdateTaskAT
@@ -40,7 +40,7 @@ const initialState:TasksStateType = {
 }
 
 
-export const tasksReducer = (state = initialState, action: ActionType): TasksStateType => {
+export const tasksReducer = (state = initialState, action: TasksActionType): TasksStateType => {
     switch (action.type) {
         case 'SET-TODOLISTS': {
             let copy = {...state};
@@ -127,21 +127,21 @@ export const updateTaskAC = (todolistId: string, taskId: string, model: UpdateDo
 
 
 
-export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
+export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<TasksActionType>) => {
     tasksApi.getTasks(todolistId)
         .then((res) => {
             dispatch(setTasksAC(todolistId, res.data.items))
         })
 }
 
-export const deleteTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch) => {
+export const deleteTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch<TasksActionType>) => {
     tasksApi.deleteTask(todolistId, taskId)
         .then((res) => {
             dispatch(removeTaskAC(todolistId, taskId))
         })
 }
 
-export const createTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+export const createTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch<TasksActionType>) => {
     tasksApi.createTask(todolistId, title)
         .then((res) => {
             dispatch(addTaskAC(res.data.data.item))
@@ -149,7 +149,7 @@ export const createTaskTC = (todolistId: string, title: string) => (dispatch: Di
 }
 
 export const updateTaskTC = (todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType) =>
-    (dispatch: Dispatch, getState: () => AppRootStateType) => {
+    (dispatch: Dispatch<TasksActionType>, getState: () => AppRootStateType) => {
         const task = getState().tasks[todolistId].find(t => t.id === taskId);
 
         if (!task) {

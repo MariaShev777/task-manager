@@ -8,7 +8,7 @@ import {Task} from "./Task";
 import {TaskStatuses, TaskType} from "./api/tasks-api";
 import {FilterType} from "./reducers/todolists-reducer";
 import {fetchTasksTC} from "./reducers/tasks-reducer";
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "./state/store";
 
 
 type TodolistPropsType = {
@@ -27,7 +27,7 @@ type TodolistPropsType = {
 
 
 export const Todolist = React.memo((props: TodolistPropsType) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const removeTodolist = () => {
         props.deleteTodolist(props.todolistId);
