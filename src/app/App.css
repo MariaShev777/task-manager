@@ -23,11 +23,8 @@
 }
 
 .addFrame {
-  position: relative;
-  /*background-color: rgba(255, 255, 255, 0.42);*/
   border-radius: 15px;
-  height: 50%;
-  margin: 15px;
+  height: 100%;
   padding: 15px 8px 20px 25px;
 }
 
@@ -35,16 +32,16 @@
   background-color: white;
   border-radius: 15px;
   height: 100%;
-  padding: 10px 20px 20px;
-  margin: 15px;
+  padding: 8px 10px 25px 27px;
+  margin: 10px 20px 30px;
   box-shadow:0 0 8px #3c2c70;
 }
 
 .button {
-  color: white;
-  background-color: #8b64fd;
-  border-radius: 5px;
-  margin-top: 7px
+  /*color: white;*/
+  /*background-color: #8b64fd;*/
+  /*border-radius: 5px;*/
+  /*margin-top: 7px*/
 }
 
 .buttonToAdd {

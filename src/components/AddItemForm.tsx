@@ -6,7 +6,8 @@ import Button from "@mui/material/Button";
 
 type PropsType = {
     addItem: (title: string) => void
-    className?: string
+    name?: string
+    disabled?: boolean
 }
 
 
@@ -36,6 +37,15 @@ export const AddItemForm = React.memo((props: PropsType) => {
         }
     }
 
+    const buttonStyle = {
+        width: '25px',
+        height: '25px',
+        color: 'white',
+        backgroundColor: '#8b64fd',
+        borderRadius: '5px',
+        marginTop: '7px'
+    }
+
     return (
         <div>
             <TextField variant="outlined"
@@ -43,12 +53,13 @@ export const AddItemForm = React.memo((props: PropsType) => {
                        value={title}
                        onChange={onChangeHandler}
                        onKeyDown={onKeyDownHandler}
-                       label="Title"
+                       label={props.name || "Title"}
                        helperText={error}
+                       disabled={props.disabled}
             />
 
-            <Button onClick={addTask}>
-                <AddIcon className={props.className} sx={{ width: '27px', height: '27px'}} />
+            <Button  onClick={addTask} disabled={props.disabled}>
+                <AddIcon style={buttonStyle}/>
             </Button>
         </div>
     )

@@ -7,12 +7,12 @@ import {
     TodolistDomainType
 } from "./todolists-reducer";
 import React, {useCallback, useEffect} from "react";
-import {createTaskTC, deleteTaskTC, updateTaskTC} from "./tasks-reducer";
-import {TaskStatuses} from "../../api/tasks-api";
+import {addTaskTC, deleteTaskTC, updateTaskTC} from "./tasks-reducer";
 import {TasksStateType} from "../../app/App";
 import Grid from "@mui/material/Grid";
 import {AddItemForm} from "../../components/AddItemForm";
 import {Todolist} from "./Todolist/Todolist";
+import {TASK_STATUSES} from "../../api/todolists-api";
 
 
 export const TodolistsList: React.FC = () => {
@@ -27,14 +27,14 @@ export const TodolistsList: React.FC = () => {
 
 
     const addTask = useCallback((todolistId: string, title: string) => {
-        dispatch(createTaskTC(todolistId, title));
+        dispatch(addTaskTC(todolistId, title));
     }, [])
 
     const deleteTask = useCallback((todolistId: string, taskId: string) => {
         dispatch(deleteTaskTC(todolistId, taskId));
     }, [])
 
-    const changeStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
+    const changeStatus = useCallback((todolistId: string, taskId: string, status: TASK_STATUSES) => {
         dispatch(updateTaskTC(todolistId, taskId, {status}));
     }, [])
 
@@ -62,7 +62,7 @@ export const TodolistsList: React.FC = () => {
 
     return <>
 
-        <Grid container spacing={5}>
+        <Grid container spacing={3}>
             {todolists.map(tl => {
 
                 return <Grid key={tl.id} className={"todolistFrame"} >
@@ -70,6 +70,7 @@ export const TodolistsList: React.FC = () => {
                             key={tl.id}
                             todolistId={tl.id}
                             filter={tl.filter}
+                            entityStatus={tl.entityStatus}
                             tasks={tasks[tl.id]}
                             title={tl.title}
                             deleteTask={deleteTask}
@@ -84,8 +85,8 @@ export const TodolistsList: React.FC = () => {
 
             })
             }
-            <Grid  xs={3.35} className={"addFrame"}>
-                <AddItemForm addItem={addTodolist} className={'buttonToAdd'}/>
+            <Grid className={"addFrame"}>
+                <AddItemForm addItem={addTodolist} name={'New TO-DO list'}/>
             </Grid>
         </Grid>
 

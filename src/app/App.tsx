@@ -1,6 +1,5 @@
 import React from "react";
 import './App.css';
-import {TaskType} from "../api/tasks-api";
 import {Menu} from "@mui/icons-material";
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
@@ -9,6 +8,11 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import {TodolistsList} from "../features/TodolistsList/TodolistsList";
+import LinearProgress from '@mui/material/LinearProgress';
+import {useAppSelector} from "./store";
+import {RequestStatusType} from "./app-reducer";
+import {ErrorSnackbar} from "../components/ErrorSnackbar";
+import {TaskType} from "../api/todolists-api";
 
 
 export type TasksStateType = {
@@ -18,9 +22,13 @@ export type TasksStateType = {
 
 function App() {
 
+    const status = useAppSelector<RequestStatusType>(state => state.app.status);
+
+
     return (
         <div className="App">
-            <AppBar position="static" sx={{marginBottom: '70px'}}>
+            <ErrorSnackbar />
+            <AppBar position="static" sx={{marginBottom: '80px'}}>
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu">
                         <Menu/>
@@ -30,6 +38,7 @@ function App() {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
+                {status === 'loading' && <LinearProgress color="secondary"/>}
             </AppBar>
             <Container maxWidth="xl" fixed>
                 <TodolistsList />

@@ -5,7 +5,9 @@ import {combineReducers, legacy_createStore} from "redux";
 import {tasksReducer} from "../../features/TodolistsList/tasks-reducer";
 import {todolistsReducer} from "../../features/TodolistsList/todolists-reducer";
 import {v1} from "uuid";
-import {TaskPriorities, TaskStatuses} from "../../api/tasks-api";
+import {TASK_PRIORITIES, TASK_STATUSES} from "../../api/todolists-api";
+
+
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
@@ -14,22 +16,25 @@ const rootReducer = combineReducers({
 
 const initialGlobalState = {
     todolists: [
-        {id: "todolistId1", title: "What to learn", filter: "all", addedDate: '', order: 0},
-        {id: "todolistId2", title: "What to buy", filter: "all", addedDate: '', order: 0}
+        {id: "todolistId1", title: "What to learn", filter: "all", addedDate: '', order: 0, entityStatus: 'idle'},
+        {id: "todolistId2", title: "What to buy", filter: "all", addedDate: '', order: 0, entityStatus: 'idle'}
     ] ,
     tasks: {
         ["todolistId1"]: [
-            { id: v1(), title: "HTML&CSS", status: TaskStatuses.Completed, todoListId: "todolistId1", description: '',
-                startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low },
-            { id: v1(), title: "JS", status: TaskStatuses.New, todoListId: "todolistId1", description: '',
-                startDate: '', deadline: '', addedDate: '', order: -1, priority: TaskPriorities.Low }
+            { id: v1(), title: "HTML&CSS", status: TASK_STATUSES.Completed, todoListId: "todolistId1", description: '',
+                startDate: '', deadline: '', addedDate: '', order: 0, priority: TASK_PRIORITIES.Low },
+            { id: v1(), title: "JS", status: TASK_STATUSES.New, todoListId: "todolistId1", description: '',
+                startDate: '', deadline: '', addedDate: '', order: -1, priority: TASK_PRIORITIES.Low }
         ],
         ["todolistId2"]: [
-            { id: v1(), title: "Milk", status: TaskStatuses.New, todoListId: "todolistId2", description: '',
-                startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low },
-            { id: v1(), title: "React Book", status: TaskStatuses.Completed, todoListId: "todolistId2", description: '',
-                startDate: '', deadline: '', addedDate: '', order: -1, priority: TaskPriorities.Low }
+            { id: v1(), title: "Milk", status: TASK_STATUSES.New, todoListId: "todolistId2", description: '',
+                startDate: '', deadline: '', addedDate: '', order: 0, priority: TASK_PRIORITIES.Low },
+            { id: v1(), title: "React Book", status: TASK_STATUSES.Completed, todoListId: "todolistId2", description: '',
+                startDate: '', deadline: '', addedDate: '', order: -1, priority: TASK_PRIORITIES.Low }
         ]
+    },
+    app: {
+        status: 'idle', error: null
     }
 };
 

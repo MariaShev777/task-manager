@@ -5,10 +5,11 @@ import s from './Todolist.module.css';
 import {Button, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {Task} from "./Task/Task";
-import {TaskStatuses, TaskType} from "../../../api/tasks-api";
 import {FilterType} from "../todolists-reducer";
 import {fetchTasksTC} from "../tasks-reducer";
 import {useAppDispatch} from "../../../app/store";
+import {RequestStatusType} from "../../../app/app-reducer";
+import {TASK_STATUSES, TaskType} from "../../../api/todolists-api";
 
 
 type TodolistPropsType = {
@@ -18,11 +19,12 @@ type TodolistPropsType = {
     deleteTask: (todolistId: string, taskId: string) => void
     changeFilter: (todolistId: string, value: FilterType) => void
     addTask: (todolistId: string, title: string) => void
-    changeStatus: (todolistId: string, taskId: string, status: TaskStatuses) => void
+    changeStatus: (todolistId: string, taskId: string, status: TASK_STATUSES) => void
     filter: FilterType
     deleteTodolist: (todolistId: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
     changeTodolistTitle: (todolistId: string, title: string) => void
+    entityStatus: RequestStatusType
 }
 
 
@@ -58,11 +60,11 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
     let tasksForTodolist = props.tasks;
 
     if (props.filter === "active") {
-        tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.New);
+        tasksForTodolist = props.tasks.filter(t => t.status === TASK_STATUSES.New);
     }
 
     if (props.filter === "completed") {
-        tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed);
+        tasksForTodolist = props.tasks.filter(t => t.status === TASK_STATUSES.Completed);
     }
 
     useEffect(() => {
@@ -73,14 +75,14 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
 
 
     return (
-        <div className={'frame'}>
+        <div>
             <h3>
                 <EditableSpan title={props.title} onChange={changeTodolistTitle}/>
-                <IconButton onClick={removeTodolist}>
+                <IconButton onClick={removeTodolist} disabled={props.entityStatus === 'loading'}>
                     <Delete />
                 </IconButton>
             </h3>
-            <AddItemForm addItem={addTask} className={'button'}/>
+            <AddItemForm addItem={addTask} disabled={props.entityStatus === 'loading'}/>
             <div className={s.taskStyle}>
                 {tasksForTodolist.map(t => {
                     return <Task
