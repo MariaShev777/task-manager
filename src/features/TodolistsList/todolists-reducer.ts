@@ -1,4 +1,4 @@
-import {todolistsApi, TodolistType} from "../api/todolists-api";
+import {todolistsApi, TodolistType} from "../../api/todolists-api";
 import {Dispatch} from "redux";
 
 export type SetTodolistsAT = ReturnType<typeof setTodolistsAC>;
@@ -34,7 +34,7 @@ export const todolistsReducer = (state = initialState, action: TodolistsActionTy
             return state.filter(tl => tl.id !== action.payload.todolistId)
         }
         case 'ADD-TODOLIST': {
-            return [{...action.payload.todolist, filter: 'all'}, ...state]
+            return [...state, {...action.payload.todolist, filter: 'all'}]
         }
         case 'CHANGE-TODOLIST-TITLE': {
             return state.map(tl => tl.id === action.payload.todolistId ? {...tl, title: action.payload.title} : tl)

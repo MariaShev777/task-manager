@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect} from "react";
-import {AddItemForm} from "./AddItemForm";
-import {EditableSpan} from "./EditableSpan";
+import {AddItemForm} from "../../../components/AddItemForm";
+import {EditableSpan} from "../../../components/EditableSpan";
 import s from './Todolist.module.css';
 import {Button, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
-import {Task} from "./Task";
-import {TaskStatuses, TaskType} from "./api/tasks-api";
-import {FilterType} from "./reducers/todolists-reducer";
-import {fetchTasksTC} from "./reducers/tasks-reducer";
-import {useAppDispatch} from "./state/store";
+import {Task} from "./Task/Task";
+import {TaskStatuses, TaskType} from "../../../api/tasks-api";
+import {FilterType} from "../todolists-reducer";
+import {fetchTasksTC} from "../tasks-reducer";
+import {useAppDispatch} from "../../../app/store";
 
 
 type TodolistPropsType = {
@@ -70,6 +70,8 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
     }, [])
 
 
+
+
     return (
         <div className={'frame'}>
             <h3>
@@ -78,7 +80,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
                     <Delete />
                 </IconButton>
             </h3>
-            <AddItemForm addItem={addTask} />
+            <AddItemForm addItem={addTask} className={'button'}/>
             <div className={s.taskStyle}>
                 {tasksForTodolist.map(t => {
                     return <Task

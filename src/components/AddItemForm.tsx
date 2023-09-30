@@ -1,10 +1,12 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {AddBox} from "@mui/icons-material";
+import TextField from '@mui/material/TextField';
+import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
 
 
 type PropsType = {
     addItem: (title: string) => void
+    className?: string
 }
 
 
@@ -17,7 +19,7 @@ export const AddItemForm = React.memo((props: PropsType) => {
             props.addItem(title.trim());
             setTitle("");
         } else {
-            setError("TITLE IS REQUIRED");
+            setError("Title is required");
         }
     }
 
@@ -34,20 +36,20 @@ export const AddItemForm = React.memo((props: PropsType) => {
         }
     }
 
-    const buttonSettings = {
-        width: '30px',
-        height: '30px',
-        color: '#8b64fd'
-    }
-
     return (
         <div>
-            <input value={title} onChange={onChangeHandler} className={error ? "error" : ""} onKeyDown={onKeyDownHandler}/>
-            <Button onClick={addTask}>
-                <AddBox style={buttonSettings}/>
-            </Button>
+            <TextField variant="outlined"
+                       error={!!error}
+                       value={title}
+                       onChange={onChangeHandler}
+                       onKeyDown={onKeyDownHandler}
+                       label="Title"
+                       helperText={error}
+            />
 
-            {error && <div className={"error-message"}>{error}</div>}
+            <Button onClick={addTask}>
+                <AddIcon className={props.className} sx={{ width: '27px', height: '27px'}} />
+            </Button>
         </div>
     )
 });
