@@ -62,17 +62,14 @@ export const TodolistsList: React.FC = () => {
 
     return <>
 
-        <Grid container spacing={3}>
+        <Grid container className={"todolistsListFrame"}>
             {todolists.map(tl => {
 
                 return <Grid key={tl.id} className={"todolistFrame"} >
                         <Todolist
                             key={tl.id}
-                            todolistId={tl.id}
-                            filter={tl.filter}
-                            entityStatus={tl.entityStatus}
+                            todolist={tl}
                             tasks={tasks[tl.id]}
-                            title={tl.title}
                             deleteTask={deleteTask}
                             changeFilter={changeFilter}
                             addTask={addTask}

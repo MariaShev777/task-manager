@@ -13,6 +13,7 @@ import {useAppSelector} from "./store";
 import {RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar";
 import {TaskType} from "../api/todolists-api";
+import Grid from "@mui/material/Grid";
 
 
 export type TasksStateType = {
@@ -26,9 +27,9 @@ function App() {
 
 
     return (
-        <div className="App">
+        <div className="App" >
             <ErrorSnackbar />
-            <AppBar position="static" sx={{marginBottom: '80px'}}>
+            <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu">
                         <Menu/>
@@ -40,7 +41,7 @@ function App() {
                 </Toolbar>
                 {status === 'loading' && <LinearProgress color="secondary"/>}
             </AppBar>
-            <Container maxWidth="xl" fixed>
+            <Container fixed sx={{marginTop: '50px'}}>
                 <TodolistsList />
             </Container>
 
