@@ -13,7 +13,6 @@ type TaskPropsType = {
 
 export const Task = React.memo((props: TaskPropsType) => {
 
-
     const removeTask = useCallback(() => {
         props.deleteTask(props.todolistId, props.task.id);
     }, [props.todolistId, props.task.id]);

@@ -27,6 +27,10 @@ type TodolistPropsType = {
 export const Todolist = React.memo((props: TodolistPropsType) => {
     const dispatch = useAppDispatch();
 
+    useEffect(() => {
+        dispatch(fetchTasksTC(props.todolist.id));
+    }, [])
+
     const removeTodolist = () => {
         props.deleteTodolist(props.todolist.id);
     }
@@ -63,13 +67,6 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
         tasksForTodolist = props.tasks.filter(t => t.status === TASK_STATUSES.Completed);
     }
 
-    useEffect(() => {
-        dispatch(fetchTasksTC(props.todolist.id));
-    }, [])
-
-
-
-
     return (
         <div>
             <h3>
@@ -92,12 +89,12 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
                 })}
             </div>
             <div>
-                <Button variant={props.todolist.filter === 'all' ? 'outlined' : 'text'}
-                    onClick={onAllClickHandler}>All</Button>
-                <Button variant={props.todolist.filter === 'active' ? 'outlined' : 'text'}
-                    onClick={onActiveClickHandler}>Active</Button>
-                <Button variant={props.todolist.filter === 'completed' ? 'outlined' : 'text'}
-                    onClick={onCompletedClickHandler}>Completed</Button>
+                <Button variant={props.todolist.filter === "all" ? "outlined" : "text"}
+                        onClick={onAllClickHandler}>All</Button>
+                <Button variant={props.todolist.filter === "active" ? "outlined" : "text"}
+                        onClick={onActiveClickHandler}>Active</Button>
+                <Button variant={props.todolist.filter === "completed" ? "outlined" : "text"}
+                        onClick={onCompletedClickHandler}>Completed</Button>
             </div>
         </div>
     );

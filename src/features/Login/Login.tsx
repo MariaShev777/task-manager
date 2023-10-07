@@ -13,8 +13,9 @@ type FormikErrorsType = {
 
 
 export const Login = () => {
+    const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
+
     const dispatch = useAppDispatch();
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
 
     const formik = useFormik({
         initialValues: {

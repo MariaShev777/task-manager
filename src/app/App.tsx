@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './App.css';
 import {Menu} from "@mui/icons-material";
 import AppBar from "@mui/material/AppBar";
@@ -9,23 +9,39 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import {TodolistsList} from "../features/TodolistsList/TodolistsList";
 import LinearProgress from '@mui/material/LinearProgress';
-import {useAppSelector} from "./store";
-import {RequestStatusType} from "./app-reducer";
+import {useAppDispatch, useAppSelector} from "./store";
+import {initializeAppTC, RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar";
-import {TaskType} from "../api/todolists-api";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "../features/Login/Login";
+import {CircularProgress} from "@mui/material";
+import {logoutTC} from "../features/Login/auth-reducer";
 
-
-export type TasksStateType = {
-    [key: string]: TaskType[]
-}
 
 
 function App() {
-
     const status = useAppSelector<RequestStatusType>(state => state.app.status);
+    const isInitialised = useAppSelector<boolean>(state => state.app.isInitialised);
+    const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
 
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(initializeAppTC());
+    }, [])
+
+
+    if (!isInitialised) {
+        return <div
+            style={{position: "fixed", top: "30%", textAlign: "center", width: "100%"}}>
+            <CircularProgress color="secondary"/>
+        </div>
+    }
+
+
+    const onLogoutHandler = () => {
+        dispatch(logoutTC());
+    }
 
     return (
         <div className="App" >
@@ -38,7 +54,8 @@ function App() {
                     <Typography variant="h6">
                         News
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    {isLoggedIn && <Button onClick={onLogoutHandler} sx={{fontSize: '17px', marginLeft: 'auto'}}
+                                           color="inherit">Log Out</Button>}
                 </Toolbar>
                 {status === 'loading' && <LinearProgress color="secondary"/>}
             </AppBar>

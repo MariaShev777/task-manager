@@ -7,8 +7,7 @@ import {
     TodolistDomainType
 } from "./todolists-reducer";
 import React, {useCallback, useEffect} from "react";
-import {addTaskTC, deleteTaskTC, updateTaskTC} from "./tasks-reducer";
-import {TasksStateType} from "../../app/App";
+import {addTaskTC, deleteTaskTC, TasksStateType, updateTaskTC} from "./tasks-reducer";
 import Grid from "@mui/material/Grid";
 import {AddItemForm} from "../../components/AddItemForm";
 import {Todolist} from "./Todolist/Todolist";
@@ -70,31 +69,28 @@ export const TodolistsList: React.FC = () => {
     }
 
     return <>
-
         <Grid container className={"todolistsListFrame"}>
+            <Grid className={"addFrame"}>
+                <AddItemForm addItem={addTodolist} name={"New TO-DO list"}/>
+            </Grid>
             {todolists.map(tl => {
 
-                return <Grid key={tl.id} className={"todolistFrame"} >
-                        <Todolist
-                            key={tl.id}
-                            todolist={tl}
-                            tasks={tasks[tl.id]}
-                            deleteTask={deleteTask}
-                            changeFilter={changeFilter}
-                            addTask={addTask}
-                            changeStatus={changeStatus}
-                            deleteTodolist={deleteTodolist}
-                            changeTaskTitle={changeTaskTitle}
-                            changeTodolistTitle={changeTodolistTitle}/>
+                return <Grid key={tl.id} className={"todolistFrame"}>
+                    <Todolist
+                        key={tl.id}
+                        todolist={tl}
+                        tasks={tasks[tl.id]}
+                        deleteTask={deleteTask}
+                        changeFilter={changeFilter}
+                        addTask={addTask}
+                        changeStatus={changeStatus}
+                        deleteTodolist={deleteTodolist}
+                        changeTaskTitle={changeTaskTitle}
+                        changeTodolistTitle={changeTodolistTitle}/>
                 </Grid>
-
-
             })
             }
-            <Grid className={"addFrame"}>
-                <AddItemForm addItem={addTodolist} name={'New TO-DO list'}/>
-            </Grid>
-        </Grid>
 
+        </Grid>
     </>
 }
