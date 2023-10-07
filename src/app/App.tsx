@@ -13,7 +13,8 @@ import {useAppSelector} from "./store";
 import {RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar";
 import {TaskType} from "../api/todolists-api";
-import Grid from "@mui/material/Grid";
+import {Navigate, Route, Routes} from "react-router-dom";
+import {Login} from "../features/Login/Login";
 
 
 export type TasksStateType = {
@@ -42,9 +43,13 @@ function App() {
                 {status === 'loading' && <LinearProgress color="secondary"/>}
             </AppBar>
             <Container fixed sx={{marginTop: '50px'}}>
-                <TodolistsList />
+                <Routes>
+                    <Route path='/' element={<TodolistsList />}/>
+                    <Route path='/login' element={<Login />}/>
+                    <Route path='/404' element={<h1>404: PAGE NOT FOUND</h1>}/>
+                    <Route path='*' element={<Navigate to='/404'/>}/>
+                </Routes>
             </Container>
-
         </div>
     )
 }
