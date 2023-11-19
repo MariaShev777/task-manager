@@ -1,9 +1,7 @@
 .App {
-
 }
 
 .App span {
-
 }
 
 .done-tasks {
@@ -35,10 +33,9 @@
   height: 100%;
   padding: 8px 10px 25px 27px;
   margin: 10px 20px 30px;
-  box-shadow:0 0 8px #3c2c70;
+  box-shadow: 0 0 8px #3c2c70;
 }
 .todolistsListFrame {
-
 }
 
 .button {
@@ -52,4 +49,3 @@
   color: #8b64fd;
   margin-top: 8px;
 }
-
