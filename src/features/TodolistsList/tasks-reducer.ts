@@ -39,6 +39,9 @@ const slice = createSlice({
       })
       .addCase(todolistsActions.removeTodolist, (state, action) => {
         delete state[action.payload.todolistId];
+      })
+      .addCase(todolistsActions.clearTodosData, () => {
+        return {};
       });
   },
 });
