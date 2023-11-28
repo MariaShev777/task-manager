@@ -15,11 +15,15 @@ import { AddItemForm } from 'components/AddItemForm';
 import { Todolist } from './Todolist/Todolist';
 import { TASK_STATUSES } from 'api/todolists-api';
 import { Navigate } from 'react-router-dom';
+import { selectTodolists } from 'features/TodolistsList/todolists.selectors';
+import { selectIsLoggedIn } from 'features/auth/login.selectors';
+import { selectTasks } from 'features/TodolistsList/tasks.selectors';
 
 export const TodolistsList: React.FC = () => {
-  const todolists = useAppSelector<TodolistDomainType[]>((state) => state.todolists);
-  const tasks = useAppSelector<TasksStateType>((state) => state.tasks);
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const todolists = useAppSelector<TodolistDomainType[]>(selectTodolists);
+  const tasks = useAppSelector<TasksStateType>(selectTasks);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {

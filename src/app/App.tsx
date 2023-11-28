@@ -13,14 +13,16 @@ import { useAppDispatch, useAppSelector } from './store';
 import { initializeAppTC, RequestStatusType } from './app-reducer';
 import { ErrorSnackbar } from 'components/ErrorSnackbar';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Login } from 'features/Login/Login';
+import { Login } from 'features/auth/Login';
 import { CircularProgress } from '@mui/material';
-import { logoutTC } from 'features/Login/auth-reducer';
+import { logoutTC } from 'features/auth/auth-reducer';
+import { selectAppStatus, selectIsInitialised } from 'app/app.selectors';
+import { selectIsLoggedIn } from 'features/auth/login.selectors';
 
 function App() {
-  const status = useAppSelector<RequestStatusType>((state) => state.app.status);
-  const isInitialised = useAppSelector<boolean>((state) => state.app.isInitialised);
-  const isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn);
+  const status = useAppSelector<RequestStatusType>(selectAppStatus);
+  const isInitialised = useAppSelector<boolean>(selectIsInitialised);
+  const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn);
 
   const dispatch = useAppDispatch();
 
