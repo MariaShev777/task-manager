@@ -7,17 +7,17 @@ import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { TodolistsList } from 'features/TodolistsList/TodolistsList';
+import { TodolistsList } from 'features/todolistsList/TodolistsList';
 import LinearProgress from '@mui/material/LinearProgress';
-import { useAppDispatch, useAppSelector } from './store';
-import { initializeAppTC, RequestStatusType } from './app-reducer';
-import { ErrorSnackbar } from 'components/ErrorSnackbar';
+import { initializeAppTC, RequestStatusType } from 'app/app.reducer';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Login } from 'features/auth/Login';
+import { Login } from 'features/auth/ui/login/Login';
 import { CircularProgress } from '@mui/material';
-import { logoutTC } from 'features/auth/auth-reducer';
+import { logoutTC } from 'features/auth/model/auth.reducer';
 import { selectAppStatus, selectIsInitialised } from 'app/app.selectors';
-import { selectIsLoggedIn } from 'features/auth/login.selectors';
+import { selectIsLoggedIn } from 'features/auth/model/auth.selectors';
+import { useAppDispatch, useAppSelector } from 'common/hooks';
+import { ErrorSnackbar } from 'common/components';
 
 function App() {
   const status = useAppSelector<RequestStatusType>(selectAppStatus);

@@ -2,10 +2,10 @@ import Grid from '@mui/material/Grid';
 import { Button, Checkbox, FormControlLabel, FormGroup, FormLabel } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
-import { loginTC } from './auth-reducer';
-import { useAppDispatch, useAppSelector } from 'app/store';
+import { loginTC } from 'features/auth/model/auth.reducer';
 import { Navigate } from 'react-router-dom';
-import { selectIsLoggedIn } from 'features/auth/login.selectors';
+import { useAppDispatch, useAppSelector } from 'common/hooks';
+import { selectIsLoggedIn } from 'features/auth/model/auth.selectors';
 
 type FormikErrorsType = {
   email?: string;

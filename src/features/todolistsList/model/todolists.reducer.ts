@@ -1,9 +1,11 @@
-import { RESPONSE_RESULT, todolistsAPI, TodolistType } from 'api/todolists-api';
 import { Dispatch } from 'redux';
-import { appActions, RequestStatusType } from 'app/app-reducer';
-import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils';
+import { appActions, RequestStatusType } from 'app/app.reducer';
 import { AppThunk } from 'app/store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { handleServerAppError, handleServerNetworkError } from 'common/utils';
+import { RESPONSE_RESULT } from 'common/enums';
+import { TodolistType } from 'features/todolistsList/api/todolistsApi.types';
+import { todolistsAPI } from 'features/todolistsList/api/todolistsApi';
 
 const slice = createSlice({
   name: 'todolists',

@@ -2,10 +2,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { AppRootStateType } from 'app/store';
 import { combineReducers, legacy_createStore } from 'redux';
-import { tasksReducer } from 'features/TodolistsList/tasks-reducer';
-import { todolistsReducer } from 'features/TodolistsList/todolists-reducer';
+import { tasksReducer } from 'features/todolistsList/model/tasks.reducer';
+import { todolistsReducer } from 'features/todolistsList/model/todolists.reducer';
 import { v1 } from 'uuid';
-import { TASK_PRIORITIES, TASK_STATUSES } from 'api/todolists-api';
+import { TASK_PRIORITIES, TASK_STATUSES } from 'common/enums';
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,

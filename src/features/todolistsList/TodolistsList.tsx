@@ -1,4 +1,3 @@
-import { useAppDispatch, useAppSelector } from 'app/store';
 import {
   addTodolistTC,
   changeTodolistTitleTC,
@@ -7,17 +6,18 @@ import {
   FilterType,
   TodolistDomainType,
   todolistsActions,
-} from './todolists-reducer';
+} from 'features/todolistsList/model/todolists.reducer';
 import React, { useCallback, useEffect } from 'react';
-import { TasksStateType, tasksThunks } from './tasks-reducer';
+import { TasksStateType, tasksThunks } from 'features/todolistsList/model/tasks.reducer';
 import Grid from '@mui/material/Grid';
-import { AddItemForm } from 'components/AddItemForm';
 import { Todolist } from './Todolist/Todolist';
-import { TASK_STATUSES } from 'api/todolists-api';
 import { Navigate } from 'react-router-dom';
-import { selectTodolists } from 'features/TodolistsList/todolists.selectors';
-import { selectIsLoggedIn } from 'features/auth/login.selectors';
-import { selectTasks } from 'features/TodolistsList/tasks.selectors';
+import { selectTodolists } from 'features/todolistsList/model/todolists.selectors';
+import { selectIsLoggedIn } from 'features/auth/model/auth.selectors';
+import { selectTasks } from 'features/todolistsList/model/tasks.selectors';
+import { useAppDispatch, useAppSelector } from 'common/hooks';
+import { AddItemForm } from 'common/components';
+import { TASK_STATUSES } from 'common/enums';
 
 export const TodolistsList: React.FC = () => {
   const todolists = useAppSelector<TodolistDomainType[]>(selectTodolists);

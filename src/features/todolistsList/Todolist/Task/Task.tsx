@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useCallback } from 'react';
-import { EditableSpan } from 'components/EditableSpan';
-import { TASK_STATUSES, TaskType } from 'api/todolists-api';
+import { EditableSpan } from 'common/components';
+import { TASK_STATUSES } from 'common/enums';
+import { TaskType } from 'features/todolistsList/api/todolistsApi.types';
 
 type TaskPropsType = {
   task: TaskType;
