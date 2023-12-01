@@ -32,7 +32,7 @@ export const loginTC =
         }
       })
       .catch((e) => {
-        handleServerNetworkError(e.message, dispatch);
+        handleServerNetworkError(e, dispatch);
       });
   };
 

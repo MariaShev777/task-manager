@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { AddItemForm } from 'components/AddItemForm';
 import { EditableSpan } from 'components/EditableSpan';
 import s from './Todolist.module.css';
@@ -8,6 +8,7 @@ import { Task } from './Task/Task';
 import { FilterType, TodolistDomainType } from '../todolists-reducer';
 import { useAppDispatch } from 'app/store';
 import { TASK_STATUSES, TaskType } from 'api/todolists-api';
+import { tasksThunks } from 'features/TodolistsList/tasks-reducer';
 
 type TodolistPropsType = {
   todolist: TodolistDomainType;
@@ -23,6 +24,10 @@ type TodolistPropsType = {
 
 export const Todolist = React.memo((props: TodolistPropsType) => {
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(tasksThunks.fetchTasks(props.todolist.id));
+  }, []);
 
   const removeTodolist = () => {
     props.deleteTodolist(props.todolist.id);
