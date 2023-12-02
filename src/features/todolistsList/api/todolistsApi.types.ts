@@ -12,6 +12,8 @@ export type DeleteTaskArgsType = { todolistId: string; taskId: string };
 export type CreateTaskArgsType = { todolistId: string; title: string };
 export type UpdateTaskArgsType = { todolistId: string; taskId: string; domainModel: UpdateDomainTaskModelType };
 
+export type ChangeTodolistTitleArgsType = { todolistId: string; title: string };
+
 export type GetTasksResponseType = {
   items: TaskType[];
   totalCount: number;

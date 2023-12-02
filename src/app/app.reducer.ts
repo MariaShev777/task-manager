@@ -19,7 +19,7 @@ const slice = createSlice({
     setAppError: (state, action: PayloadAction<{ error: null | string }>) => {
       state.error = action.payload.error;
     },
-    setIsInitialised: (state, action: PayloadAction<{ isInitialised: boolean }>) => {
+    setAppInitialised: (state, action: PayloadAction<{ isInitialised: boolean }>) => {
       state.isInitialised = action.payload.isInitialised;
     },
   },
@@ -40,7 +40,7 @@ export const initializeAppTC = (): AppThunk => async (dispatch) => {
   } catch (e) {
     handleServerNetworkError((e as Error).message, dispatch);
   } finally {
-    dispatch(appActions.setIsInitialised({ isInitialised: true }));
+    dispatch(appActions.setAppInitialised({ isInitialised: true }));
   }
 };
 

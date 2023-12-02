@@ -1,7 +1,7 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from "react";
-import TextField from "@mui/material/TextField";
-import AddIcon from "@mui/icons-material/Add";
-import Button from "@mui/material/Button";
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import TextField from '@mui/material/TextField';
+import AddIcon from '@mui/icons-material/Add';
+import Button from '@mui/material/Button';
 
 type PropsType = {
   addItem: (title: string) => void;
@@ -10,15 +10,15 @@ type PropsType = {
 };
 
 export const AddItemForm = React.memo((props: PropsType) => {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   const addTask = () => {
-    if (title.trim() !== "") {
+    if (title.trim() !== '') {
       props.addItem(title.trim());
-      setTitle("");
+      setTitle('');
     } else {
-      setError("Title is required");
+      setError('Title is required');
     }
   };
 
@@ -30,18 +30,18 @@ export const AddItemForm = React.memo((props: PropsType) => {
     if (error !== null) {
       setError(null);
     }
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       addTask();
     }
   };
 
   const buttonStyle = {
-    width: "25px",
-    height: "25px",
-    color: "white",
-    backgroundColor: "#8b64fd",
-    borderRadius: "5px",
-    marginTop: "7px",
+    width: '25px',
+    height: '25px',
+    color: 'white',
+    backgroundColor: '#8b64fd',
+    borderRadius: '5px',
+    marginTop: '7px',
   };
 
   return (
@@ -52,7 +52,7 @@ export const AddItemForm = React.memo((props: PropsType) => {
         value={title}
         onChange={onChangeHandler}
         onKeyDown={onKeyDownHandler}
-        label={props.name || "Title"}
+        label={props.name || 'Title'}
         helperText={error}
         disabled={props.disabled}
       />
