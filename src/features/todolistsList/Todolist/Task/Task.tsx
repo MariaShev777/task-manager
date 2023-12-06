@@ -32,10 +32,15 @@ export const Task = React.memo((props: TaskPropsType) => {
   );
 
   return (
-    <div className={props.task.status === TASK_STATUSES.Completed ? 'done-tasks' : ''}>
-      <input type="checkbox" checked={props.task.status === TASK_STATUSES.Completed} onChange={changeTaskStatus} />
+    <div className={props.task.status === TASK_STATUSES.Completed ? 'done-tasks' : 'task'}>
+      <input
+        type="checkbox"
+        checked={props.task.status === TASK_STATUSES.Completed}
+        onChange={changeTaskStatus}
+        style={{ marginRight: '15px', transform: 'translateY(2px)', display: 'inline-block' }}
+      />
       <EditableSpan title={props.task.title} onChange={changeTaskTitle} />
-      <button onClick={removeTask} style={{ marginLeft: '10px', color: '#1f1f20', fontWeight: 'bold' }}>
+      <button onClick={removeTask} style={{ padding: '3px 8px', color: '#1f1f20', fontWeight: 'bold' }}>
         X
       </button>
     </div>

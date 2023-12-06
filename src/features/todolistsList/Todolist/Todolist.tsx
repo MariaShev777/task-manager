@@ -70,27 +70,38 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
   }
 
   return (
-    <div>
+    <div className={s.todolist}>
       <h3>
         <EditableSpan title={props.todolist.title} onChange={changeTodolistTitle} />
-        <IconButton onClick={removeTodolist} disabled={props.todolist.entityStatus === 'loading'}>
+        <IconButton
+          onClick={removeTodolist}
+          disabled={props.todolist.entityStatus === 'loading'}
+          className={s.deleteButton}
+          style={{ position: 'absolute' }}
+        >
           <Delete />
         </IconButton>
       </h3>
       <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'} />
-      <div className={s.taskStyle}>
-        {tasksForTodolist.map((t) => {
-          return (
-            <Task
-              key={t.id}
-              task={t}
-              todolistId={props.todolist.id}
-              deleteTask={props.deleteTask}
-              changeTaskTitle={props.changeTaskTitle}
-              changeTaskStatus={props.changeStatus}
-            />
-          );
-        })}
+      <div className={s.tasksWrapper}>
+        {tasksForTodolist.length > 0 ? (
+          tasksForTodolist.map((t) => {
+            return (
+              <div className={s.taskWrapper}>
+                <Task
+                  key={t.id}
+                  task={t}
+                  todolistId={props.todolist.id}
+                  deleteTask={props.deleteTask}
+                  changeTaskTitle={props.changeTaskTitle}
+                  changeTaskStatus={props.changeStatus}
+                />
+              </div>
+            );
+          })
+        ) : (
+          <div className={s.noTasks}>No tasks</div>
+        )}
       </div>
       <div>
         <Button variant={props.todolist.filter === 'all' ? 'outlined' : 'text'} onClick={onAllClickHandler}>

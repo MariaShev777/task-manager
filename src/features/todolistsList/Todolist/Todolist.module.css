@@ -1,11 +1,38 @@
-.taskStyle {
-  margin: 10px 5px 20px;
+.todolist {
+  position: relative;
 }
 
-.taskStyle div {
-  margin: 8px;
+.todolist h3 {
+  max-width: 268px;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
-.allTasks {
-  background-color: orange;
+.deleteButton {
+  position: absolute;
+  right: 12px;
+  top: -8px;
+}
+
+
+.tasksWrapper {
+  margin: 10px 0 20px;
+}
+
+
+.noTasks {
+  color: dimgrey;
+  padding-left: 5px;
+}
+
+.taskWrapper {
+  display: flex;
+  position: relative;
+  padding: 7px 0 7px;
+  align-items: center;
+}
+
+.taskWrapper button {
+  position: absolute;
+  right: 22px;
 }
