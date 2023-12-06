@@ -1,4 +1,4 @@
-export type LoginDataType = {
+export type LoginParamsType = {
   email: string;
   password: string;
   rememberMe?: boolean;
