@@ -11,6 +11,7 @@ import {
   UpdateTaskModelType,
 } from 'features/todolistsList/api/todolistsApi.types';
 import { todolistsAPI } from 'features/todolistsList/api/todolistsApi';
+import { thunkTryCatch } from 'common/utils/thunkTryCatch';
 
 const slice = createSlice({
   name: 'tasks',
@@ -93,21 +94,16 @@ const deleteTask = createAppAsyncThunk<DeleteTaskArgsType, DeleteTaskArgsType>(`
 
 const addTask = createAppAsyncThunk<{ task: TaskType }, CreateTaskArgsType>(`${slice.name}/addTask`, async (arg, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
-  try {
-    dispatch(appActions.setAppStatus({ status: 'loading' }));
+  return thunkTryCatch(thunkAPI, async () => {
     const res = await todolistsAPI.createTask(arg);
     if (res.data.resultCode === RESPONSE_RESULT.SUCCESS) {
       const task = res.data.data.item;
-      dispatch(appActions.setAppStatus({ status: 'succeeded' }));
       return { task };
     } else {
       handleServerAppError(res.data, dispatch);
       return rejectWithValue(null);
     }
-  } catch (e) {
-    handleServerNetworkError(e, dispatch);
-    return rejectWithValue(null);
-  }
+  });
 });
 
 const updateTask = createAppAsyncThunk<UpdateTaskArgsType, UpdateTaskArgsType>(`${slice.name}/updateTask`, async (arg, thunkAPI) => {
