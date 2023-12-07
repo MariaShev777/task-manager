@@ -1,15 +1,22 @@
 import Grid from '@mui/material/Grid';
 import { Button, Checkbox, FormControlLabel, FormGroup, FormLabel } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import { useFormik } from 'formik';
+import { FormikHelpers, useFormik } from 'formik';
 import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'common/hooks';
 import { selectIsLoggedIn } from 'features/auth/model/auth.selectors';
 import { authThunks } from 'features/auth/model/auth.reducer';
+import { BaseResponseType } from 'common/types';
 
 type FormikErrorsType = {
   email?: string;
   password?: string;
+};
+
+type FormValues = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
 };
 
 export const Login = () => {
@@ -24,25 +31,28 @@ export const Login = () => {
       rememberMe: false,
     },
     validate: (values) => {
-      const errors: FormikErrorsType = {};
-
-      if (!values.email) {
-        errors.email = 'Required';
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address';
-      }
-
-      if (!values.password) {
-        errors.password = 'Required';
-      } else if (values.password.length <= 3) {
-        errors.password = 'Password is too short';
-      }
-
-      return errors;
+      // const errors: FormikErrorsType = {};
+      // if (!values.email) {
+      //   errors.email = 'Required';
+      // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+      //   errors.email = 'Invalid email address';
+      // }
+      //
+      // if (!values.password) {
+      //   errors.password = 'Required';
+      // } else if (values.password.length <= 3) {
+      //   errors.password = 'Password is too short';
+      // }
+      // return errors;s
     },
-    onSubmit: (values) => {
-      dispatch(authThunks.login(values));
-      formik.resetForm();
+    onSubmit: (values, formikHelpers: FormikHelpers<FormValues>) => {
+      dispatch(authThunks.login(values))
+        .unwrap()
+        .catch((err: BaseResponseType) => {
+          err.fieldsErrors?.forEach((fieldError) => {
+            return formikHelpers.setFieldError(fieldError.field, fieldError.error);
+          });
+        });
     },
   });
 
