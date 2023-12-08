@@ -15,19 +15,20 @@ import { Login } from 'features/auth/ui/login/Login';
 import { CircularProgress } from '@mui/material';
 import { selectAppStatus, selectIsInitialised } from 'app/app.selectors';
 import { selectIsLoggedIn } from 'features/auth/model/auth.selectors';
-import { useAppDispatch, useAppSelector } from 'common/hooks';
+import { useAppSelector } from 'common/hooks';
 import { ErrorSnackbar } from 'common/components';
 import { authThunks } from 'features/auth/model/auth.reducer';
+import { useActions } from 'common/hooks/useActions';
 
 function App() {
   const status = useAppSelector<RequestStatusType>(selectAppStatus);
   const isInitialised = useAppSelector<boolean>(selectIsInitialised);
   const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn);
 
-  const dispatch = useAppDispatch();
+  const { initializeApp, logout } = useActions(authThunks);
 
   useEffect(() => {
-    dispatch(authThunks.initializeApp());
+    initializeApp();
   }, []);
 
   if (!isInitialised) {
@@ -39,7 +40,7 @@ function App() {
   }
 
   const onLogoutHandler = () => {
-    dispatch(authThunks.logout());
+    logout();
   };
 
   return (
