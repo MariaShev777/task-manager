@@ -87,9 +87,8 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
         {tasksForTodolist.length > 0 ? (
           tasksForTodolist.map((t) => {
             return (
-              <div className={s.taskWrapper}>
+              <div className={s.taskWrapper} key={t.id}>
                 <Task
-                  key={t.id}
                   task={t}
                   todolistId={props.todolist.id}
                   deleteTask={props.deleteTask}
