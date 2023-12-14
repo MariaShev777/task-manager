@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { todolistsActions, todolistsThunks } from 'features/todolistsList/model/todolists.reducer';
 import { appActions } from 'app/app.reducer';
-import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils';
+import { createAppAsyncThunk, handleServerAppError } from 'common/utils';
 import { RESPONSE_RESULT, TASK_PRIORITIES, TASK_STATUSES } from 'common/enums';
 import {
   CreateTaskArgsType,
@@ -53,9 +53,7 @@ const slice = createSlice({
   },
 });
 
-export type TasksStateType = {
-  [key: string]: TaskType[];
-};
+export type TasksStateType = Record<string, TaskType[]>;
 
 const fetchTasks = createAppAsyncThunk<{ todolistId: string; tasks: TaskType[] }, string>(
   `${slice.name}/fetchTasks`,
