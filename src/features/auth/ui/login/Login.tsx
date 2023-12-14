@@ -9,10 +9,7 @@ import { authThunks } from 'features/auth/model/auth.reducer';
 import { BaseResponseType } from 'common/types';
 import { LoginParamsType } from 'features/auth/api/authApi.types';
 
-type FormikErrorsType = {
-  email?: string;
-  password?: string;
-};
+type FormikErrorsType = Partial<Omit<LoginParamsType, 'captcha'>>;
 
 export const Login = () => {
   const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn);
