@@ -1,54 +1,11 @@
 import Grid from '@mui/material/Grid';
 import { Button, Checkbox, FormControlLabel, FormGroup, FormLabel } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import { FormikHelpers, useFormik } from 'formik';
 import { Navigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'common/hooks';
-import { selectIsLoggedIn } from 'features/auth/model/auth.selectors';
-import { authThunks } from 'features/auth/model/auth.reducer';
-import { BaseResponseType } from 'common/types';
-import { LoginParamsType } from 'features/auth/api/authApi.types';
-
-type FormikErrorsType = Partial<Omit<LoginParamsType, 'captcha'>>;
+import { useLogin } from 'features/auth/lib';
 
 export const Login = () => {
-  const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn);
-
-  const dispatch = useAppDispatch();
-
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-      rememberMe: false,
-    },
-    validate: (values) => {
-      const errors: FormikErrorsType = {};
-      if (!values.email) {
-        errors.email = 'Required';
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address';
-      }
-
-      if (!values.password) {
-        errors.password = 'Required';
-      } else if (values.password.length <= 3) {
-        errors.password = 'Password is too short';
-      }
-      return errors;
-    },
-    onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
-      dispatch(authThunks.login(values))
-        .unwrap()
-        .catch((err: BaseResponseType) => {
-          err.fieldsErrors?.forEach((fieldError) => {
-            return formikHelpers.setFieldError(fieldError.field, fieldError.error);
-          });
-        });
-    },
-  });
-
-  const errorsArray = Object.values(formik.errors);
+  const { formik, isLoggedIn, errorsArray } = useLogin();
 
   if (isLoggedIn) {
     return <Navigate to="/" />;
