@@ -1,12 +1,12 @@
-import { FilterType, TodolistDomainType, todolistsActions, todolistsThunks } from 'features/todolistsList/model/todolists.reducer';
+import { FilterType, TodolistDomainType, todolistsActions, todolistsThunks } from 'features/todolistsList/model/todolists/todolistsReducer';
 import React, { useCallback, useEffect } from 'react';
-import { TasksStateType, tasksThunks } from 'features/todolistsList/model/tasks.reducer';
+import { TasksStateType, tasksThunks } from 'features/todolistsList/model/tasks/tasksReducer';
 import Grid from '@mui/material/Grid';
-import { Todolist } from './Todolist/Todolist';
+import { Todolist } from 'features/todolistsList/ui/todolist/Todolist';
 import { Navigate } from 'react-router-dom';
-import { selectTodolists } from 'features/todolistsList/model/todolists.selectors';
+import { selectTodolists } from 'features/todolistsList/model/todolists/todolistsSelectors';
 import { selectIsLoggedIn } from 'features/auth/model/auth.selectors';
-import { selectTasks } from 'features/todolistsList/model/tasks.selectors';
+import { selectTasks } from 'features/todolistsList/model/tasks/tasksSelectors';
 import { useAppDispatch, useAppSelector } from 'common/hooks';
 import { AddItemForm } from 'common/components';
 import { TASK_STATUSES } from 'common/enums';

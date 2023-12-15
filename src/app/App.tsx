@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { TodolistsList } from 'features/todolistsList/TodolistsList';
+import { TodolistsList } from 'features/todolistsList/ui/TodolistsList';
 import LinearProgress from '@mui/material/LinearProgress';
 import { RequestStatusType } from 'app/app.reducer';
 import { Navigate, Route, Routes } from 'react-router-dom';

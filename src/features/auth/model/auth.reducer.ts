@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { appActions } from 'app/app.reducer';
-import { todolistsActions } from 'features/todolistsList/model/todolists.reducer';
-import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils';
+import { todolistsActions } from 'features/todolistsList/model/todolists/todolistsReducer';
+import { createAppAsyncThunk, handleServerAppError } from 'common/utils';
 import { LoginParamsType } from 'features/auth/api/authApi.types';
 import { RESPONSE_RESULT } from 'common/enums';
 import { authAPI } from 'features/auth/api/authApi';

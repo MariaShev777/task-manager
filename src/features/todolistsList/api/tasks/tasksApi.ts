@@ -1,36 +1,15 @@
 import { AxiosResponse } from 'axios';
+import { BaseResponseType } from 'common/types';
+import { instance } from 'common/api';
 import {
-  ChangeTodolistTitleArgsType,
   CreateTaskArgsType,
   DeleteTaskArgsType,
   GetTasksResponseType,
   TaskType,
-  TodolistType,
   UpdateTaskModelType,
-} from 'features/todolistsList/api/todolistsApi.types';
-import { BaseResponseType } from 'common/types';
-import { instance } from 'common/api';
+} from 'features/todolistsList/api/tasks/tasksApi.types';
 
-export const todolistsAPI = {
-  getTodolists() {
-    return instance.get<TodolistType[]>('todo-lists');
-  },
-  deleteTodolist(todolistId: string) {
-    return instance.delete<BaseResponseType>(`todo-lists/${todolistId}`);
-  },
-  createTodolist(title: string) {
-    return instance.post<
-      BaseResponseType<{ item: TodolistType }>,
-      AxiosResponse<BaseResponseType<{ item: TodolistType }>>,
-      { title: string }
-    >('todo-lists', { title });
-  },
-  updateTodolist(arg: ChangeTodolistTitleArgsType) {
-    return instance.put<BaseResponseType, AxiosResponse<BaseResponseType>, { title: string }>(`todo-lists/${arg.todolistId}`, {
-      title: arg.title,
-    });
-  },
-
+export const tasksAPI = {
   getTasks(todolistId: string) {
     return instance.get<GetTasksResponseType>(`todo-lists/${todolistId}/tasks`);
   },
