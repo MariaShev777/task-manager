@@ -73,18 +73,14 @@ const deleteTask = createAppAsyncThunk<DeleteTaskArgs, DeleteTaskArgs>(`${slice.
   });
 });
 
-const addTask = createAppAsyncThunk<{ task: TaskType }, CreateTaskArgs>(`${slice.name}/addTask`, async (arg, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
-  return thunkTryCatch(thunkAPI, async () => {
-    const res = await tasksAPI.createTask(arg);
-    if (res.data.resultCode === RESPONSE_RESULT.SUCCESS) {
-      const task = res.data.data.item;
-      return { task };
-    } else {
-      handleServerAppError(res.data, dispatch, false);
-      return rejectWithValue(res.data);
-    }
-  });
+const addTask = createAppAsyncThunk<{ task: TaskType }, CreateTaskArgs>(`${slice.name}/addTask`, async (arg, { rejectWithValue }) => {
+  const res = await tasksAPI.createTask(arg);
+  if (res.data.resultCode === RESPONSE_RESULT.SUCCESS) {
+    const task = res.data.data.item;
+    return { task };
+  } else {
+    return rejectWithValue(res.data);
+  }
 });
 
 const updateTask = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>(`${slice.name}/updateTask`, async (arg, thunkAPI) => {

@@ -1,4 +1,4 @@
-import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AnyAction, createSlice, isFulfilled, isPending, isRejected, PayloadAction } from '@reduxjs/toolkit';
 
 const slice = createSlice({
   name: 'app',
@@ -17,30 +17,21 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addMatcher(
-        (action: AnyAction) => {
-          return action.type.endsWith('/pending');
-        },
-        (state) => {
-          state.status = 'loading';
-        },
-      )
-      .addMatcher(
-        (action: AnyAction) => {
-          return action.type.endsWith('/fulfilled');
-        },
-        (state) => {
-          state.status = 'succeeded';
-        },
-      )
-      .addMatcher(
-        (action: AnyAction) => {
-          return action.type.endsWith('/rejected');
-        },
-        (state) => {
-          state.status = 'failed';
-        },
-      );
+      .addMatcher(isPending, (state) => {
+        state.status = 'loading';
+      })
+      .addMatcher(isFulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addMatcher(isRejected, (state, action: AnyAction) => {
+        state.status = 'failed';
+        if (action.payload) {
+          if (action.type.includes('addTodolist') || action.type.includes('addTask')) return;
+          state.error = action.payload.messages[0];
+        } else {
+          state.error = action.error.message ? action.error.message : 'Some error occurred';
+        }
+      });
   },
 });
 
