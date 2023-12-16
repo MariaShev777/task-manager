@@ -5,4 +5,4 @@ export type TodolistType = {
   order: number;
 };
 
-export type ChangeTodolistTitleArgsType = { todolistId: string; title: string };
+export type ChangeTodolistTitleArgs = { todolistId: string; title: string };

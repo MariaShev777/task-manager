@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { ChangeTodolistTitleArgsType, TodolistType } from 'features/todolistsList/api/todolists/todolistsApi.types';
+import { ChangeTodolistTitleArgs, TodolistType } from 'features/todolistsList/api/todolists/todolistsApi.types';
 import { BaseResponseType } from 'common/types';
 import { instance } from 'common/api';
 
@@ -17,7 +17,7 @@ export const todolistsAPI = {
       { title: string }
     >('todo-lists', { title });
   },
-  updateTodolist(arg: ChangeTodolistTitleArgsType) {
+  updateTodolist(arg: ChangeTodolistTitleArgs) {
     return instance.put<BaseResponseType, AxiosResponse<BaseResponseType>, { title: string }>(`todo-lists/${arg.todolistId}`, {
       title: arg.title,
     });

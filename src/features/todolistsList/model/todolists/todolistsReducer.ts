@@ -2,7 +2,7 @@ import { RequestStatusType } from 'app/app.reducer';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createAppAsyncThunk, handleServerAppError } from 'common/utils';
 import { RESPONSE_RESULT } from 'common/enums';
-import { ChangeTodolistTitleArgsType, TodolistType } from 'features/todolistsList/api/todolists/todolistsApi.types';
+import { ChangeTodolistTitleArgs, TodolistType } from 'features/todolistsList/api/todolists/todolistsApi.types';
 import { todolistsAPI } from 'features/todolistsList/api/todolists/todolistsApi';
 import { thunkTryCatch } from 'common/utils/thunkTryCatch';
 
@@ -76,7 +76,7 @@ const deleteTodolist = createAppAsyncThunk<{ todolistId: string }, string>(`${sl
   });
 });
 
-const changeTodolistTitle = createAppAsyncThunk<ChangeTodolistTitleArgsType, ChangeTodolistTitleArgsType>(
+const changeTodolistTitle = createAppAsyncThunk<ChangeTodolistTitleArgs, ChangeTodolistTitleArgs>(
   `${slice.name}/changeTodolistTitle`,
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;

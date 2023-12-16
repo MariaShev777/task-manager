@@ -1,17 +1,17 @@
 import { UpdateDomainTaskModelType } from 'features/todolistsList/model/tasks/tasksReducer';
 import { TASK_PRIORITIES, TASK_STATUSES } from 'common/enums';
 
-export type DeleteTaskArgsType = { todolistId: string; taskId: string };
-export type CreateTaskArgsType = { todolistId: string; title: string };
-export type UpdateTaskArgsType = { todolistId: string; taskId: string; domainModel: UpdateDomainTaskModelType };
+export type DeleteTaskArgs = { todolistId: string; taskId: string };
+export type CreateTaskArgs = { todolistId: string; title: string };
+export type UpdateTaskArgs = { todolistId: string; taskId: string; domainModel: UpdateDomainTaskModelType };
 
-export type GetTasksResponseType = {
+export type GetTasksResponse = {
   items: TaskType[];
   totalCount: number;
   error: string | null;
 };
 
-export type UpdateTaskModelType = {
+export type UpdateTaskModel = {
   title: string;
   description: string;
   status: TASK_STATUSES;

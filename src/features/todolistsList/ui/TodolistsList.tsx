@@ -1,6 +1,6 @@
-import { FilterType, TodolistDomainType, todolistsActions, todolistsThunks } from 'features/todolistsList/model/todolists/todolistsReducer';
+import { TodolistDomainType, todolistsThunks } from 'features/todolistsList/model/todolists/todolistsReducer';
 import React, { useCallback, useEffect } from 'react';
-import { TasksStateType, tasksThunks } from 'features/todolistsList/model/tasks/tasksReducer';
+import { TasksStateType } from 'features/todolistsList/model/tasks/tasksReducer';
 import Grid from '@mui/material/Grid';
 import { Todolist } from 'features/todolistsList/ui/todolist/Todolist';
 import { Navigate } from 'react-router-dom';
@@ -9,7 +9,6 @@ import { selectIsLoggedIn } from 'features/auth/model/auth.selectors';
 import { selectTasks } from 'features/todolistsList/model/tasks/tasksSelectors';
 import { useAppDispatch, useAppSelector } from 'common/hooks';
 import { AddItemForm } from 'common/components';
-import { TASK_STATUSES } from 'common/enums';
 
 export const TodolistsList: React.FC = () => {
   const todolists = useAppSelector<TodolistDomainType[]>(selectTodolists);
@@ -26,36 +25,8 @@ export const TodolistsList: React.FC = () => {
     dispatch(todolistsThunks.fetchTodolists());
   }, []);
 
-  const addTask = useCallback((todolistId: string, title: string) => {
-    dispatch(tasksThunks.addTask({ todolistId, title }));
-  }, []);
-
-  const deleteTask = useCallback((todolistId: string, taskId: string) => {
-    dispatch(tasksThunks.deleteTask({ todolistId, taskId }));
-  }, []);
-
-  const changeStatus = useCallback((todolistId: string, taskId: string, status: TASK_STATUSES) => {
-    dispatch(tasksThunks.updateTask({ todolistId, taskId, domainModel: { status } }));
-  }, []);
-
-  const changeTaskTitle = useCallback((todolistId: string, taskId: string, title: string) => {
-    dispatch(tasksThunks.updateTask({ todolistId, taskId, domainModel: { title } }));
-  }, []);
-
   const addTodolist = useCallback((title: string) => {
     dispatch(todolistsThunks.addTodolist(title));
-  }, []);
-
-  const deleteTodolist = useCallback((todolistId: string) => {
-    dispatch(todolistsThunks.deleteTodolist(todolistId));
-  }, []);
-
-  const changeFilter = useCallback((todolistId: string, filter: FilterType) => {
-    dispatch(todolistsActions.changeTodolistFilter({ todolistId, filter }));
-  }, []);
-
-  const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
-    dispatch(todolistsThunks.changeTodolistTitle({ todolistId, title }));
   }, []);
 
   if (!isLoggedIn) {
@@ -71,18 +42,7 @@ export const TodolistsList: React.FC = () => {
         {todolists.map((tl) => {
           return (
             <Grid key={tl.id} className={'todolistFrame'}>
-              <Todolist
-                key={tl.id}
-                todolist={tl}
-                tasks={tasks[tl.id]}
-                deleteTask={deleteTask}
-                changeFilter={changeFilter}
-                addTask={addTask}
-                changeStatus={changeStatus}
-                deleteTodolist={deleteTodolist}
-                changeTaskTitle={changeTaskTitle}
-                changeTodolistTitle={changeTodolistTitle}
-              />
+              <Todolist key={tl.id} todolist={tl} tasks={tasks[tl.id]} />
             </Grid>
           );
         })}
