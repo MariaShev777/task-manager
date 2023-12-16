@@ -81,8 +81,8 @@ const addTask = createAppAsyncThunk<{ task: TaskType }, CreateTaskArgs>(`${slice
       const task = res.data.data.item;
       return { task };
     } else {
-      handleServerAppError(res.data, dispatch);
-      return rejectWithValue(null);
+      handleServerAppError(res.data, dispatch, false);
+      return rejectWithValue(res.data);
     }
   });
 });
@@ -93,7 +93,7 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>(`${slice.
     const task = getState().tasks[arg.todolistId].find((t) => t.id === arg.taskId);
 
     if (!task) {
-      dispatch(appActions.setAppError({ error: 'Task has not been found' }));
+      dispatch(appActions.setAppError({ error: 'task has not been found' }));
       return rejectWithValue(null);
     }
 

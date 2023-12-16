@@ -25,8 +25,8 @@ export const TodolistsList: React.FC = () => {
     dispatch(todolistsThunks.fetchTodolists());
   }, []);
 
-  const addTodolist = useCallback((title: string) => {
-    dispatch(todolistsThunks.addTodolist(title));
+  const addTodolistCallback = useCallback((title: string) => {
+    return dispatch(todolistsThunks.addTodolist(title)).unwrap();
   }, []);
 
   if (!isLoggedIn) {
@@ -37,7 +37,7 @@ export const TodolistsList: React.FC = () => {
     <>
       <Grid container className={'todolistsListFrame'}>
         <Grid className={'addFrame'}>
-          <AddItemForm addItem={addTodolist} name={'New TO-DO list'} />
+          <AddItemForm addItem={addTodolistCallback} name={'New TO-DO list'} />
         </Grid>
         {todolists.map((tl) => {
           return (

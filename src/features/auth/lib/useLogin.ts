@@ -1,7 +1,7 @@
 import { FormikHelpers, useFormik } from 'formik';
 import { LoginParamsType } from 'features/auth/api/authApi.types';
 import { authThunks } from 'features/auth/model/auth.reducer';
-import { BaseResponseType } from 'common/types';
+import { BaseResponse } from 'common/types';
 import { useActions } from 'common/hooks/useActions';
 import { useAppSelector } from 'common/hooks';
 import { selectIsLoggedIn } from 'features/auth/model/auth.selectors';
@@ -37,7 +37,7 @@ export const useLogin = () => {
     onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
       login(values)
         .unwrap()
-        .catch((err: BaseResponseType) => {
+        .catch((err: BaseResponse) => {
           err.fieldsErrors?.forEach((fieldError) => {
             return formikHelpers.setFieldError(fieldError.field, fieldError.error);
           });

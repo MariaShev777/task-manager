@@ -4,7 +4,7 @@ import { TASK_STATUSES } from 'common/enums';
 import { TaskType } from 'features/todolistsList/api/tasks/tasksApi.types';
 import { useAppDispatch } from 'common/hooks';
 import { tasksThunks } from 'features/todolistsList/model/tasks/tasksReducer';
-import s from './Task.module.css';
+import s from 'features/todolistsList/ui/todolist/tasks/task/Task.module.css';
 
 type Props = {
   task: TaskType;

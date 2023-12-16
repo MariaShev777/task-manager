@@ -1,16 +1,16 @@
-type FieldErrorType = {
+type FieldError = {
   error: string;
   field: string;
 };
 
-export type BaseResponseType<D = {}> = {
+export type BaseResponse<D = {}> = {
   resultCode: number;
   messages: string[];
   data: D;
-  fieldsErrors?: FieldErrorType[];
+  fieldsErrors?: FieldError[];
 };
 
-export type UserType = {
+export type User = {
   id: number;
   email: string;
   login: string;
