@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { appActions } from 'app/app.reducer';
 import { todolistsActions } from 'features/todolistsList/model/todolists/todolistsReducer';
 import { createAppAsyncThunk, handleServerAppError } from 'common/utils';
@@ -18,16 +18,21 @@ const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(login.fulfilled, (state, action) => {
+    builder.addMatcher(
+      (action: AnyAction) => {
+        if (
+          action.type === 'auth/login/fulfilled' ||
+          action.type === 'auth/logout/fulfilled' ||
+          action.type === 'app/initializeApp/fulfilled'
+        ) {
+          return true;
+        }
+        return false;
+      },
+      (state, action) => {
         state.isLoggedIn = action.payload.isLoggedIn;
-      })
-      .addCase(logout.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn;
-      })
-      .addCase(initializeApp.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn;
-      });
+      },
+    );
   },
 });
 
