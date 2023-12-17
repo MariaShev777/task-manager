@@ -1,12 +1,12 @@
 import { AxiosResponse } from 'axios';
-import { instance } from 'common/api';
-import { LoginParamsType } from 'features/auth/api/authApi.types';
 import { User } from 'common/types';
 import { BaseResponse } from 'common/types';
+import { instance } from 'common/api';
+import { LoginParams } from 'features/auth/api/authApi.types';
 
 export const authAPI = {
-  login(data: LoginParamsType) {
-    return instance.post<BaseResponse<{ userId: number }>, AxiosResponse<BaseResponse<{ userId: number }>>, LoginParamsType>(
+  login(data: LoginParams) {
+    return instance.post<BaseResponse<{ userId: number }>, AxiosResponse<BaseResponse<{ userId: number }>>, LoginParams>(
       'auth/login',
       data,
     );

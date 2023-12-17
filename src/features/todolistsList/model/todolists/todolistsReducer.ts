@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createAppAsyncThunk } from 'common/utils';
 import { RESPONSE_RESULT } from 'common/enums';
 import { ChangeTodolistTitleArgs, TodolistType } from 'features/todolistsList/api/todolists/todolistsApi.types';
-import { todolistsAPI } from 'features/todolistsList/api/todolists/todolistsApi';
+import { todolistsAPI } from 'features/todolistsList/api/todolists';
 
 const slice = createSlice({
   name: 'todolists',

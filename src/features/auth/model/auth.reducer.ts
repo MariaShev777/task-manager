@@ -1,11 +1,8 @@
 import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
-import { appActions } from 'app/app.reducer';
 import { todolistsActions } from 'features/todolistsList/model/todolists/todolistsReducer';
-import { createAppAsyncThunk, handleServerAppError } from 'common/utils';
-import { LoginParamsType } from 'features/auth/api/authApi.types';
+import { createAppAsyncThunk } from 'common/utils';
 import { RESPONSE_RESULT } from 'common/enums';
-import { authAPI } from 'features/auth/api/authApi';
-import { thunkTryCatch } from 'common/utils/thunkTryCatch';
+import { authAPI, LoginParams } from 'features/auth/api';
 
 const slice = createSlice({
   name: 'auth',
@@ -27,7 +24,7 @@ const slice = createSlice({
   },
 });
 
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(`${slice.name}/login`, async (arg, { rejectWithValue }) => {
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParams>(`${slice.name}/login`, async (arg, { rejectWithValue }) => {
   const res = await authAPI.login(arg);
   if (res.data.resultCode === RESPONSE_RESULT.SUCCESS) {
     return { isLoggedIn: true };
@@ -38,16 +35,13 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(`${s
 
 const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>(`${slice.name}/logout`, async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
-  return thunkTryCatch(thunkAPI, async () => {
-    const res = await authAPI.logout();
-    if (res.data.resultCode === RESPONSE_RESULT.SUCCESS) {
-      dispatch(todolistsActions.clearTodosData());
-      return { isLoggedIn: false };
-    } else {
-      handleServerAppError(res.data, dispatch);
-      return rejectWithValue(null);
-    }
-  });
+  const res = await authAPI.logout();
+  if (res.data.resultCode === RESPONSE_RESULT.SUCCESS) {
+    dispatch(todolistsActions.clearTodosData());
+    return { isLoggedIn: false };
+  } else {
+    return rejectWithValue(res.data);
+  }
 });
 
 const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>(`${slice.name}/initializeApp`, async (_, { rejectWithValue }) => {

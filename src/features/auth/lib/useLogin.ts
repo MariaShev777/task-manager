@@ -1,12 +1,11 @@
 import { FormikHelpers, useFormik } from 'formik';
-import { LoginParamsType } from 'features/auth/api/authApi.types';
 import { authThunks } from 'features/auth/model/auth.reducer';
 import { BaseResponse } from 'common/types';
-import { useActions } from 'common/hooks/useActions';
-import { useAppSelector } from 'common/hooks';
+import { useActions, useAppSelector } from 'common/hooks';
 import { selectIsLoggedIn } from 'features/auth/model/auth.selectors';
+import { LoginParams } from 'features/auth/api';
 
-type FormikErrorsType = Partial<Omit<LoginParamsType, 'captcha'>>;
+type FormikErrorsType = Partial<Omit<LoginParams, 'captcha'>>;
 
 export const useLogin = () => {
   const { login } = useActions(authThunks);
@@ -34,7 +33,7 @@ export const useLogin = () => {
       }
       return errors;
     },
-    onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
+    onSubmit: (values, formikHelpers: FormikHelpers<LoginParams>) => {
       login(values)
         .unwrap()
         .catch((err: BaseResponse) => {
