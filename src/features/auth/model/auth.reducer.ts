@@ -27,18 +27,13 @@ const slice = createSlice({
   },
 });
 
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(`${slice.name}/login`, async (arg, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
-  return thunkTryCatch(thunkAPI, async () => {
-    const res = await authAPI.login(arg);
-    if (res.data.resultCode === RESPONSE_RESULT.SUCCESS) {
-      return { isLoggedIn: true };
-    } else {
-      const isShowAppError = !res.data.fieldsErrors?.length;
-      handleServerAppError(res.data, dispatch, isShowAppError);
-      return rejectWithValue(res.data);
-    }
-  });
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(`${slice.name}/login`, async (arg, { rejectWithValue }) => {
+  const res = await authAPI.login(arg);
+  if (res.data.resultCode === RESPONSE_RESULT.SUCCESS) {
+    return { isLoggedIn: true };
+  } else {
+    return rejectWithValue(res.data);
+  }
 });
 
 const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>(`${slice.name}/logout`, async (_, thunkAPI) => {
@@ -55,18 +50,13 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, void>(`${slice.name}
   });
 });
 
-const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>(`${slice.name}/initializeApp`, async (_, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
-  return thunkTryCatch(thunkAPI, async () => {
-    const res = await authAPI.me();
-    if (res.data.resultCode === RESPONSE_RESULT.SUCCESS) {
-      return { isLoggedIn: true };
-    } else {
-      return rejectWithValue(null);
-    }
-  }).finally(() => {
-    dispatch(appActions.setAppInitialised({ isInitialised: true }));
-  });
+const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, void>(`${slice.name}/initializeApp`, async (_, { rejectWithValue }) => {
+  const res = await authAPI.me();
+  if (res.data.resultCode === RESPONSE_RESULT.SUCCESS) {
+    return { isLoggedIn: true };
+  } else {
+    return rejectWithValue(res.data);
+  }
 });
 
 export const authReducer = slice.reducer;

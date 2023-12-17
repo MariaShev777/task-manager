@@ -1,31 +1,18 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import { Menu } from '@mui/icons-material';
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { TodolistsList } from 'features/todolistsList/ui/TodolistsList';
-import LinearProgress from '@mui/material/LinearProgress';
-import { RequestStatusType } from 'app/app.reducer';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { Login } from 'features/auth/ui/login/Login';
 import { CircularProgress } from '@mui/material';
-import { selectAppStatus, selectIsInitialised } from 'app/app.selectors';
-import { selectIsLoggedIn } from 'features/auth/model/auth.selectors';
-import { useAppSelector } from 'common/hooks';
+import { selectIsInitialised } from 'app/app.selectors';
+import { useActions, useAppSelector } from 'common/hooks';
 import { ErrorSnackbar } from 'common/components';
 import { authThunks } from 'features/auth/model/auth.reducer';
-import { useActions } from 'common/hooks/useActions';
+import { AppRoutes } from 'app/appRoutes';
+import { AppHeader } from 'app/appHeader';
 
 function App() {
-  const status = useAppSelector<RequestStatusType>(selectAppStatus);
   const isInitialised = useAppSelector<boolean>(selectIsInitialised);
-  const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn);
 
-  const { initializeApp, logout } = useActions(authThunks);
+  const { initializeApp } = useActions(authThunks);
 
   useEffect(() => {
     initializeApp();
@@ -39,43 +26,12 @@ function App() {
     );
   }
 
-  const onLogoutHandler = () => {
-    logout();
-  };
-
   return (
     <div className="App">
       <ErrorSnackbar />
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <Menu />
-          </IconButton>
-          <Typography variant="h6">News</Typography>
-          {isLoggedIn && (
-            <Button onClick={onLogoutHandler} sx={{ fontSize: '17px', marginLeft: 'auto' }} color="inherit">
-              Log Out
-            </Button>
-          )}
-        </Toolbar>
-        {status === 'loading' && (
-          <LinearProgress
-            sx={{
-              position: 'absolute',
-              top: 63,
-              width: '100%',
-            }}
-            color="secondary"
-          />
-        )}
-      </AppBar>
+      <AppHeader />
       <Container fixed sx={{ marginTop: '50px' }}>
-        <Routes>
-          <Route path="/" element={<TodolistsList />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
+        <AppRoutes />
       </Container>
     </div>
   );
