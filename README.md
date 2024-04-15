@@ -1,5 +1,5 @@
 # Task Manager
-****
+
 ***Stack***
 
 TypeScript, React, Redux Toolkit, MUI, Formik, React Router
